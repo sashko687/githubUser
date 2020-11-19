@@ -1,1 +1,20 @@
-<p>profile-page works!</p>
+<div *ngIf="user$| async">
+  <div class="flex-center">
+      <div class="header right">
+          <button routerLink="/search" class="btn btn-dark">Back</button>
+      </div>
+
+      <div class="flex">
+          <div class="item text-center">
+           <h1>Information:</h1>
+           <h4>Id: {{( user$ |async).id}}</h4><hr>
+           <h4>Name: {{ ( user$ |async).name}}</h4><hr>
+           <h4>Created: {{ (user$ |async).created_at | date: "short"}}</h4>
+           <div class="size-img">
+           <img src="{{(user$ |async).avatar_url}}"  />
+          </div>
+          </div>
+
+      </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+ul{
+  display: inline-flex;
+}
+
+li{
+  margin: 7px;
+}

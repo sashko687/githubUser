@@ -1,1 +1,35 @@
-<p>search-page works!</p>
+<div class="flex-center">
+  <h2 class="text-center">GithubUsers</h2>
+</div>
+<div class="flex-center">
+  <div class="form-control">
+    <mat-form-field appearance="standard">
+          <input matInput type="text" placeholder="Search gitHub users..." (keyup)="applySearch($event)"/>
+    </mat-form-field>
+  </div>
+</div>
+<div class="flex-center" *ngIf="(users$ | async).length">
+  <table mat-table [dataSource]="users$ | async " >
+
+       <ng-container matColumnDef="login">
+          <th mat-header-cell *matHeaderCellDef>Login</th>
+          <td mat-cell *matCellDef="let element;"> {{ element.login}} </td>
+        </ng-container>
+
+      <ng-container matColumnDef="html_url">
+        <th mat-header-cell *matHeaderCellDef>Title </th>
+        <td mat-cell *matCellDef="let element"><a href="{{element.html_url}}"> {{element.html_url}} </a> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="detail">
+          <th mat-header-cell *matHeaderCellDef> Detail </th>
+          <td mat-cell *matCellDef="let element">
+         <button mat-raised-button color="warn" class="btn btn-danger"
+          class="btn btn-success" [routerLink]="['/','profile', element.login]">Detail</button>
+        </td>
+        </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
