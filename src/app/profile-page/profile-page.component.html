@@ -1,4 +1,4 @@
-<div *ngIf="user$| async">
+<div *ngIf="user$| async as user">
   <div class="flex-center">
       <div class="header right">
           <button routerLink="/search" class="btn btn-dark">Back</button>
@@ -7,11 +7,11 @@
       <div class="flex">
           <div class="item text-center">
            <h1>Information:</h1>
-           <h4>Id: {{( user$ |async).id}}</h4><hr>
-           <h4>Name: {{ ( user$ |async).name}}</h4><hr>
-           <h4>Created: {{ (user$ |async).created_at | date: "short"}}</h4>
+           <h4>Id: {{user.id}}</h4><hr>
+           <h4>Name: {{ user.name}}</h4><hr>
+           <h4>Created: {{ user.created_at | date: "short"}}</h4>
            <div class="size-img">
-           <img src="{{(user$ |async).avatar_url}}"  />
+           <img src="{{ user.avatar_url}}"  />
           </div>
           </div>
 

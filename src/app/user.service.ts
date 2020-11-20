@@ -10,14 +10,12 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   public getUsersProfile(searchString: string): Observable<any> {
-    console.log('hitting github with username: ' + searchString);
     return this.http.get(
       `https://api.github.com/search/users?per_page=10&q=` + searchString
     );
   }
 
-  public detailProfile(userName: any): Observable<any> {
-    console.log('hitting github with username: ' + userName);
+  public detailProfile(userName: string): Observable<Profile> {
     return this.http.get(
       `https://api.github.com/users/` + userName
     );

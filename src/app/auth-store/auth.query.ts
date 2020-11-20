@@ -16,7 +16,7 @@ export class AuthQuery extends Query<AuthState> {
   }
 
   public isLoggedIn(): boolean {
-    return toBoolean(this.getValue().user?.uid);
+    return toBoolean(this.getValue().user);
   }
 
   public getToken(): string {

@@ -1,1 +1,14 @@
+<nav>
+  <ul>
+    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/search" routerLinkActive="active">Search</a></li>
+    <li>
+      <div>
+      <button *ngIf="!(islogged$ |async)" (click) = "login()">Github Signin</button>
+      <button *ngIf="(islogged$ | async)" (click) = "logout()">Signout</button>
+      </div>
+    </li>
+  </ul>
+</nav>
+<hr>
 <router-outlet></router-outlet>

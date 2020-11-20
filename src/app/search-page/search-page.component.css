@@ -2,3 +2,33 @@
   background: #faf1f1;
   width: 70%;
 }
+
+.align-self{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: rgb(197, 195, 195) solid 1px;
+}
+
+.wraper{
+background-color: rgb(232, 245, 210) ;
+display: block;
+width: 70%;
+}
+
+.button{
+  width: 16%;
+}
+
+span{
+  padding-left: 2.7%;
+}
+
+a{
+  padding-right: 9%;
+}
+
+mat-radio-button{
+  margin: 3px;
+}
+

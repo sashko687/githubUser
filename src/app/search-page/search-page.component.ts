@@ -1,7 +1,11 @@
 import { UserService } from './../user.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Profile } from '../profile';
+import { debounceTime, map } from 'rxjs/operators';
+import { toBoolean } from '@datorama/akita';
+import { AuthService } from '../auth-store/auth.service';
+import { AuthQuery } from '../auth-store/auth.query';
 
 @Component({
   selector: 'app-search-page',
@@ -10,19 +14,23 @@ import { Profile } from '../profile';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPageComponent implements OnInit {
+  public showData: string;
   public displayedColumns: string[] = ['login', 'html_url', 'detail'];
   public searchString: string;
-  public users$ = new BehaviorSubject<Profile[]>([]);
-  constructor(private userService: UserService) {}
+  public users$: Observable<Profile>;
+  constructor(private userService: UserService,
+    ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  this.showData = '1';
+  }
 
   public applySearch(event: Event): void {
-    setTimeout(() => {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.userService
-        .getUsersProfile(filterValue)
-        .subscribe((res) => this.users$.next(res.items));
-    }, 1000);
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.users$ = this.userService.getUsersProfile(filterValue).pipe(
+      debounceTime(700),
+      map((res) => res.items)
+    );
   }
+
 }

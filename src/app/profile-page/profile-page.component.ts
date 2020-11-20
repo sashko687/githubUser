@@ -1,30 +1,29 @@
 import { UserService } from './../user.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Profile } from '../profile';
+import { AuthQuery } from '../auth-store/auth.query';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent implements OnInit {
-  public user$ = new BehaviorSubject<Profile>(null);
+  public islogged$ = new  BehaviorSubject(this.authQuery.isLoggedIn());
+  public user$: Observable<Profile>;
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
-  ) { }
+    private authQuery: AuthQuery,
+    private userService: UserService,
+  ) {}
 
   ngOnInit(): void {
-    this.route.params
-      .pipe(switchMap((params) => this.userService.detailProfile(params.id)))
-      .subscribe((user) => {
-        console.log(user);
-        this.user$.next(user);
-      });
+   this.user$ = this.route.params
+      .pipe(switchMap((params) => this.userService.detailProfile(params.id)));
   }
 
 }

@@ -11,12 +11,12 @@ export interface AuthState {
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'auth' })
-export class AuthStore extends Store {
+export class AuthStore extends Store<AuthState> {
   constructor() {
     super({ user: null });
   }
 
-  public login(user: string): void {
+  public login(user: User): void {
     this.update({ user });
   }
 
